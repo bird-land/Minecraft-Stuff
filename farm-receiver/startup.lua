@@ -1,24 +1,23 @@
 os.setComputerLabel(!!!!!)
 rednet.open("left")
 
-local listeningText = ("Farm receiver ",os.getComputerID()," AKA ",os.getComputerLabel(),"listening...")
-
+local listeningText = "Listening..."
 rednet.broadcast(listeningText,"broadcast")
 
 while true do
     print(listeningText)
-    rednet.broadcast(listeningText,"broadcast")
+    sendBroadcast(listeningText)
     id, message, protocol = rednet.receive()
     if protocol == "command" then
         print("Received command ",message,". Acknowledging...")
-        rednet.send(id,true,"acknowledgement")
+        sendAcknowledgement(id)
         print("Running...")
-        shell.run(command)
+        shell.run(message,id)
     elseif protocol == "message" then
-        print("Received message from ", id,": ",message)
-        rednet.send(id,true,"acknowledgement")
+        printMessage(id,message)
+        sendAcknowledgement(id)
     elseif protocol == "broadcast" then
-        print("Received broadcast: ",message)
+        printBroadcast(id,message)
     end
 end
 

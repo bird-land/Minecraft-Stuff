@@ -51,3 +51,12 @@ function getItemLists(invNames)
     return itemLists
 end
 
+function wrapAll(invNames)
+	wrappedList = {}
+	for i, each in ipairs(invNames) do
+		table.insert(wrappedList, peripheral.wrap(each))
+	end
+	return wrappedList
+end
+	
+
