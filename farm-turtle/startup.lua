@@ -1,6 +1,3 @@
-require "messaging-functions"
-
-os.setComputerLabel(!!!!!)
 rednet.open("left")
 
 local listeningText = "Listening..."
@@ -20,7 +17,9 @@ while true do
         sendAcknowledgement(id)
     elseif protocol == "broadcast" then
         printBroadcast(id,message)
+    elseif protocol == "retrieve" then
+        print("Received retrieval request...")
+        sendAcknowledgement(id)
+        shell.run("retrieveItem",id,message)
     end
 end
-
-

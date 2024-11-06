@@ -1,3 +1,6 @@
+require "saving-loading"
+require "messaging-functions"
+
 print('Welcome to Seeds.')
 print(' ')
 print(' ')
@@ -8,7 +11,7 @@ rednet.open("left")
 
 plot_table = unserialize("plot_data")
 for i, plot in ipairs(plot_table) do
-    print(i," Tier: ", plot[i]["tier"])
+    print(i," Tier: ", plot["tier"])
 end
 
 
@@ -41,7 +44,7 @@ id, boolean = rednet.receive("acknowledgement")
 id, first_item_lists = rednet.receive("table_data")
 
 for i, each in ipairs(first_item_lists) do
-    print(i,each[i]["name"])
+    print(i,each["name"],each["count"])
 end
 
 finished = false
@@ -51,7 +54,7 @@ while finished == false do
     selection_seed = tonumber(selection)
     if type(selection_seed) ~= "number" then
         print("Selection must be a number.")
-    elseif plot_table[selection_seed] == nil then
+    elseif first_item_lists[selection_seed] == nil then
         print("Select an available seed.")
     else
         selected_seed = first_item_lists[selection_seed]
