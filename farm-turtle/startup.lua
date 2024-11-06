@@ -1,3 +1,5 @@
+require "messaging-functions"
+
 rednet.open("left")
 
 local listeningText = "Listening..."
